@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject[] platforms;
-
     [SerializeField] private float gap = 1.5f;
     [SerializeField] private float spawnFrequency = 1.0f;
     [SerializeField] private float platformSpeed = 10f;
