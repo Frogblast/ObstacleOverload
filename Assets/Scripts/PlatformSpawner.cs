@@ -87,7 +87,7 @@ public class PlatformSpawner : MonoBehaviour
         return platform;
     }
 
-
+    //TODO: intervallen stämmer ej som det är nu
     private float TimeBetweenSpawns(float platformSpeed, float platformLength)
     {
         //return (platformLength + gap) * spawnFrequencyMultiplier / _platformSpeed;
