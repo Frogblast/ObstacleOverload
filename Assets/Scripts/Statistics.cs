@@ -12,7 +12,7 @@ public class Statistics : MonoBehaviour
     private string speedTextDefault;
     private string timerTextDefault;
 
-    // TODO: action event for each difficulty increase with time as argument. Used to call methods in different classes depending on how far into the game it is: new platforms, music, atmosphere, text messages etc.
+    // TODO: action event for each difficulty increase with time as argument. Used to call methods in different classes depending on how far into the game it is: new spawnObjects, music, atmosphere, text messages etc.
 
     
 

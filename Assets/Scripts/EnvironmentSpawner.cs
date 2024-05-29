@@ -1,19 +1,19 @@
 using UnityEngine;
 
-public class PlatformSpawner : MonoBehaviour
+public class EnvironmentSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] platforms;
+    [SerializeField] private GameObject[] spawnObjects;
     [SerializeField] private float gap = 10f;
     [SerializeField] private float spawnFrequencyMultiplier = 1.1f;
     [SerializeField] private float locationVarietyX = 5f;
 
-    private float _platformSpeed;
+    private float _spawnSpeed;
     private float _spawnTimer;
     private float _timeUntilNextSpawn;
 
     private void Awake()
     {
-        _platformSpeed = 1f;
+        _spawnSpeed = 1f;
         _spawnTimer = 0f;
         _timeUntilNextSpawn = 0f;
     }
@@ -21,7 +21,7 @@ public class PlatformSpawner : MonoBehaviour
     private void FixedUpdate()
     {
         _spawnTimer += Time.deltaTime;
-        SpawnPlatform();
+        Spawn();
     }
 
     private void OnEnable()
@@ -38,24 +38,24 @@ public class PlatformSpawner : MonoBehaviour
         DifficultyManager.OnStart -= IncreaseSpeed;
     }
 
-    private void SpawnPlatform()
+    private void Spawn()
     {
         if (ShouldSpawn())
         {
-            GameObject platform;
+            GameObject newSpawn;
             Vector3 nextLocation;
 
-            platform = PickRandomPlatform();
+            newSpawn = PickRandomSpawnObject();
             nextLocation = new Vector3(transform.position.x + RandomFloat(-locationVarietyX, locationVarietyX),
                                            0, transform.position.z);
             
-            float platformLength = platform.GetComponentInChildren<Renderer>().bounds.size.z;
-            float nextSpawnTime = TimeBetweenSpawns(_platformSpeed, platformLength);
+            float spawnObjectLength = newSpawn.GetComponentInChildren<Renderer>().bounds.size.z;
+            float nextSpawnTime = TimeBetweenSpawns(spawnObjectLength);
   
-            GameObject newPlatform = Instantiate(platform, nextLocation, transform.rotation);
+            GameObject newSpawnLocated = Instantiate(newSpawn, nextLocation, transform.rotation);
 
-            PlatformMovement movementScript = newPlatform.GetComponent<PlatformMovement>();
-            movementScript.Speed = _platformSpeed;
+            SpawnMovement movementScript = newSpawnLocated.GetComponent<SpawnMovement>();
+            movementScript.Speed = _spawnSpeed;
 
             _spawnTimer -= nextSpawnTime;
         }
@@ -66,22 +66,22 @@ public class PlatformSpawner : MonoBehaviour
         return _spawnTimer >= _timeUntilNextSpawn;
     }
 
-    private GameObject PickRandomPlatform()
+    private GameObject PickRandomSpawnObject()
     {
-        int collectionSize = platforms.Length;
+        int collectionSize = spawnObjects.Length;
         int index = Random.Range(0, collectionSize);
-        GameObject platform = platforms[index];
-        return platform;
+        GameObject spawn = spawnObjects[index];
+        return spawn;
     }
 
-    private float TimeBetweenSpawns(float platformSpeed, float platformLength)
+    private float TimeBetweenSpawns(float spawnLength)
     {
-        return (platformLength + gap) * spawnFrequencyMultiplier / _platformSpeed;
+        return (spawnLength + gap) * spawnFrequencyMultiplier / _spawnSpeed;
     }
 
     private void IncreaseSpeed(float platformSpeed, float amount)
     {
-        this._platformSpeed = platformSpeed;
+        this._spawnSpeed = platformSpeed;
     }
 
     private void IncreaseGap(float platformSpeed, float amount)
