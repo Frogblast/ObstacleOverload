@@ -56,53 +56,6 @@ public class PlayerPhysics : MonoBehaviour
         }
     }
 
-    //private void Jump(bool fullPress)
-    //{
-    //    if (IsGrounded())
-    //    {
-    //        currentJumps = nJumps;
-    //        // Debug.Log("Available jumps are " + currentJumps);
-    //    }
-
-    //    if ((currentJumps >= 1 && jumpDelay <= 0))
-    //    {
-    //        currentJumps--;
-    //        rb.AddForce(Vector3.up * tapJumpForce, ForceMode.Impulse);
-    //        jumpDelay = minJumpFrequency;
-    //    }
-
-    //    if (fullPress)
-    //    {
-    //        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    //        Debug.Log("Full press");
-    //    }
-    //}
-
-    //private void Jump(bool tapJump)
-    //{
-
-    //    if (IsGrounded())
-    //    {
-    //        currentJumps = nJumps;
-    //        // Debug.Log("Available jumps are " + currentJumps);
-    //    }
-
-    //    if (currentJumps >= 1 && jumpDelay <= 0)
-    //    {
-    //        currentJumps--;
-    //        if (tapJump)
-    //        {
-    //            Debug.Log("Full jump");
-    //            rb.AddForce(Vector3.up * jumpForce*2, ForceMode.Impulse);
-    //        }
-    //        else
-    //        {
-    //            Debug.Log("Small jump");
-    //            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-    //        }
-    //        jumpDelay = minJumpFrequency;
-    //    }
-    //}
 
     private bool IsGrounded()
     {

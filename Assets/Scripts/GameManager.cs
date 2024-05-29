@@ -13,14 +13,20 @@ public class GameManager : MonoBehaviour
 
     public static event Action<GameState> OnGameStateChanged;
 
+    [SerializeField] GameObject _startingPlatform;
+    private PlatformMovement _startingPlatformMovementScript;
+
     private void Awake()
     {
         Instance = this;
+        _startingPlatformMovementScript = _startingPlatform.GetComponent<PlatformMovement>();
     }
 
+    //TODO ge start platformen en base speed. Enklast att flytta detta till difficulty manager men det makear inte 100% sense.
     private void Start()
     {
         UpdateGameState(GameState.Playing);
+      //  _startingPlatformMovementScript.Speed = DifficultyManager.
     }
 
     public void UpdateGameState(GameState newState)

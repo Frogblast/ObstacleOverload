@@ -10,17 +10,12 @@ public class PlatformSpawner : MonoBehaviour
     private float _platformSpeed;
     private float _spawnTimer;
     private float _timeUntilNextSpawn;
-    private bool _firstSpawnHappened = false;
 
     private void Awake()
     {
         _platformSpeed = 1f;
         _spawnTimer = 0f;
         _timeUntilNextSpawn = 0f;
-    }
-    private void Start()
-    {
-        SpawnPlatform();
     }
 
     private void FixedUpdate()
@@ -49,19 +44,11 @@ public class PlatformSpawner : MonoBehaviour
         {
             GameObject platform;
             Vector3 nextLocation;
-            if (_firstSpawnHappened)
-            {
-                platform = PickRandomPlatform();
-                nextLocation = new Vector3(transform.position.x + RandomFloat(-locationVarietyX, locationVarietyX),
-                                            transform.position.y, transform.position.z);
-            }
-            else
-            {
-                platform = platforms[0];
-                nextLocation = Vector3.zero;
-                _firstSpawnHappened = true;
-            }
 
+            platform = PickRandomPlatform();
+            nextLocation = new Vector3(transform.position.x + RandomFloat(-locationVarietyX, locationVarietyX),
+                                           0, transform.position.z);
+            
             float platformLength = platform.GetComponentInChildren<Renderer>().bounds.size.z;
             float nextSpawnTime = TimeBetweenSpawns(_platformSpeed, platformLength);
   
@@ -87,13 +74,9 @@ public class PlatformSpawner : MonoBehaviour
         return platform;
     }
 
-    //TODO: intervallen stämmer ej som det är nu
     private float TimeBetweenSpawns(float platformSpeed, float platformLength)
     {
-        //return (platformLength + gap) * spawnFrequencyMultiplier / _platformSpeed;
-        Debug.Log("Time Between Spawns: " + ((platformSpeed + gap) * spawnFrequencyMultiplier) / platformLength);
-        return ((platformSpeed + gap) * spawnFrequencyMultiplier) / platformLength;
-
+        return (platformLength + gap) * spawnFrequencyMultiplier / _platformSpeed;
     }
 
     private void IncreaseSpeed(float platformSpeed, float amount)
@@ -103,9 +86,7 @@ public class PlatformSpawner : MonoBehaviour
 
     private void IncreaseGap(float platformSpeed, float amount)
     {
-
         gap += amount;
-
     }
 
     private float RandomFloat(float min, float max)

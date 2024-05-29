@@ -15,6 +15,10 @@ public class DifficultyManager : MonoBehaviour
 
     private float timeUntilIncreaseSpeed;
 
+    public float GetPlatformBaseSpeed() { 
+        return platformBaseSpeed;
+    }
+
 
     private void Awake()
     {
