@@ -49,3 +49,5 @@ MonoBehaviour:
   gap: 50
   spawnFrequencyMultiplier: 1.1
   locationVarietyX: 5
+  locationVarietyZ: 10
+  randomFrequencyAmount: 2

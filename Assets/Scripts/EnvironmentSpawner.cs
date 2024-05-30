@@ -7,6 +7,8 @@ public class EnvironmentSpawner : MonoBehaviour
     [SerializeField] private float spawnFrequencyMultiplier = 1.1f;
     [SerializeField] private float locationVarietyX = 5f;
     [SerializeField] private float locationVarietyZ = 10f;
+    [SerializeField] private float randomFrequencyAmount = 0f;
+
 
 
     private float _spawnSpeed;
@@ -65,7 +67,8 @@ public class EnvironmentSpawner : MonoBehaviour
 
     private bool ShouldSpawn()
     {
-        return _spawnTimer >= _timeUntilNextSpawn;
+        // If randomFrequencyAmount is zero the spawn rate will be constant
+        return _spawnTimer >= _timeUntilNextSpawn + RandomFloat(-randomFrequencyAmount, randomFrequencyAmount);
     }
 
     private GameObject PickRandomSpawnObject()

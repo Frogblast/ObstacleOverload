@@ -4,20 +4,13 @@ public class SpawnMovement : MonoBehaviour
 {
     public float Speed { get; set; } = 10f;
 
-
-    //[SerializeField] bool hasRandomSpeed = true;
-    [SerializeField] float despawnDistance = 100f;
+    [SerializeField] float despawnDistance = 150f;
     private float spawnLength = 0;
     private Vector3 spawnLocation = Vector3.zero;
     private void Awake()
     {
         spawnLocation = transform.position;
         spawnLength = GetComponentInChildren<Renderer>().bounds.size.z;
-        //if (hasRandomSpeed)
-        //{
-        //    System.Random randomFloat = new System.Random();
-        //    Speed *=(float) randomFloat.Next(1,4)/2;
-        //}
     }
 
 

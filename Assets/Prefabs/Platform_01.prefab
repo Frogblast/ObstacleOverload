@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49133f6f1b366f84099f17d2f42919ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  despawnDistance: 100
+  despawnDistance: 150
 --- !u!1001 &2376480065509727260
 PrefabInstance:
   m_ObjectHideFlags: 0
