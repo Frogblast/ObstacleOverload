@@ -126,7 +126,11 @@ public class PlayerPhysics : MonoBehaviour
     {
         float ratio;
         float mass = rb.mass;
-        float currentHeight = CalculateRayDistance(Vector3.down);
+        float currentHeight = CalculateRayDistance(Vector3.down);        
+        
+        // CalculateRayDistance yields 0 if nothing is hit and so the player would fly up forever. Therefore this ugly bugfix.
+        currentHeight = (currentHeight == 0) ? groundDetectionRange + 1 : currentHeight;
+
         if (currentHeight < groundDetectionRange)
         {
             ratio = hoverHeight - currentHeight;

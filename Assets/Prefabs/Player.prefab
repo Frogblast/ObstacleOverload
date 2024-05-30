@@ -208,6 +208,7 @@ MonoBehaviour:
   steeringSpeed: 25
   forwardSpeed: 0.5
   jumpForce: 6
+  tapJumpForce: 7
   nJumps: 2
   hoverHeight: 10
   maxRotation: 45
