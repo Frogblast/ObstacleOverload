@@ -543,7 +543,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: randomFrequencyAmount
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: platforms.Array.data[1]
@@ -665,7 +665,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: randomFrequencyAmount
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: platforms.Array.data[1]
@@ -689,7 +689,7 @@ PrefabInstance:
       objectReference: {fileID: 2696308066257286899, guid: 3a8153864fedad045ad5b9ba4cf495e0, type: 3}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnObjects.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnFrequencyMultiplier
@@ -707,6 +707,10 @@ PrefabInstance:
       propertyPath: spawnObjects.Array.data[2]
       value: 
       objectReference: {fileID: 2696308066257286899, guid: 5426fba8e2ad4f44791c01396bd9fbef, type: 3}
+    - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
+      propertyPath: spawnObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 6735870976431118908, guid: 3ac03931c9a041f4e9ebf3133e1bf076, type: 3}
     - target: {fileID: 609375105919475854, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_Name
       value: PlatformSpawner
@@ -1219,7 +1223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: randomFrequencyAmount
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: platforms.Array.data[1]
