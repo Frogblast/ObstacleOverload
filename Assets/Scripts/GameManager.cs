@@ -11,9 +11,6 @@ public class GameManager : MonoBehaviour
     private enum GameState { Menu, Playing, Paused, GameOver}
     private GameState _gameState;
 
-    [SerializeField] GameObject _startingPlatform;
-    private SpawnMovement _startingPlatformMovementScript;
-
     private Scene _currentLevel; 
 
     // Public methods:
@@ -36,7 +33,6 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject); // Ensure the GameManager persists between scenes
-            _startingPlatformMovementScript = _startingPlatform.GetComponent<SpawnMovement>();
         }
         else
         {

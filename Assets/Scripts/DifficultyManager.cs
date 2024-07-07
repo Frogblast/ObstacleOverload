@@ -6,9 +6,9 @@ using UnityEngine.Events;
 
 public class DifficultyManager : MonoBehaviour
 {
-    [SerializeField] private float speedUpAmount = .1f;
-    [SerializeField] private float speedUpInterval = 10f;
-    [SerializeField] private float platformBaseSpeed = 10f;
+    [SerializeField] private float speedUpAmount = .2f;
+    [SerializeField] private float speedUpInterval = 5f;
+    [SerializeField] private float platformBaseSpeed = 20f;
 
     public static event Action<float, float> OnIncreaseDifficulty; // Platform base speed and speed up amount
     public static event Action<float, float> OnStart;
