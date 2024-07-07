@@ -2,25 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class MainMenu : MonoBehaviour
 {
-    // Get the game manager instance
-    private GameManager _gmInstance;
-
     private void Start()
     {
-        _gmInstance = GameManager.Instance;
+        Time.timeScale = 1;
     }
-
     public void Play()
     {
-        _gmInstance.StartLevel();
+        GameManager.Instance.StartGame();
     }
 
     public void Quit()
     {
-        Application.Quit();
-        Debug.Log("Player quit the game");
+        GameManager.Instance.QuitGame();
     }
 }

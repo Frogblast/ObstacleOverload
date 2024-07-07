@@ -4,64 +4,69 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GameManager : MonoBehaviour
 {
-    private static GameManager _instance;
+    public static GameManager Instance { get; private set; }
 
+    private enum GameState { Menu, Playing, Paused, GameOver}
     private GameState _gameState;
-
-    public static event Action<GameState> OnGameStateChanged;
 
     [SerializeField] GameObject _startingPlatform;
     private SpawnMovement _startingPlatformMovementScript;
 
-    // Game manager is a singleton
-    public static GameManager Instance
+    private Scene _currentLevel; 
+
+    // Public methods:
+    public void StartGame()
     {
-        get
-        {
-            if (_instance is null) Debug.LogError("Game Manager instance is null");
-            return _instance;
-        }
+        UpdateGameState(GameState.Playing);
     }
 
+    public void QuitGame()
+    {
+        Application.Quit();
+        Debug.Log("Player quit the game");
+    }
+
+
+    // Private methods:
     private void Awake()
     {
-        _instance = this;
-        _startingPlatformMovementScript = _startingPlatform.GetComponent<SpawnMovement>();
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // Ensure the GameManager persists between scenes
+            _startingPlatformMovementScript = _startingPlatform.GetComponent<SpawnMovement>();
+        }
+        else
+        {
+            Destroy(gameObject); // Ensure only one instance of GameManager exists
+        }
     }
 
-    //TODO ge start platformen en base speed. Enklast att flytta detta till difficulty manager men det makear inte 100% sense.
     private void Start()
     {
-        UpdateGameState(GameState.Playing);
-      //  _startingPlatformMovementScript.Speed = DifficultyManager.
+        UpdateGameState(GameState.Menu);
     }
 
-    public void UpdateGameState(GameState newState)
+    private void UpdateGameState(GameState newState)
     {
         _gameState = newState;
-        switch (newState)
+        switch (_gameState)
         {
+            case GameState.Menu:
+                SceneManager.LoadScene("MainMenu");
+                Time.timeScale = 1;
+                break;
             case GameState.Playing:
-              //  StartLevel();
+                SceneManager.LoadScene("RandomGeneratedLevel");
+                Time.timeScale = 1;
+                break;
+            case GameState.GameOver:
+                SceneManager.LoadScene("MainMenu");
+                Time.timeScale = 0;
                 break;
         }
-        OnGameStateChanged?.Invoke(newState);
+        Debug.Log("Gamestate updated to: " + _gameState.ToString());
     }
-
-    public void StartLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        UpdateGameState(GameState.Playing);
-        Debug.Log("Gamestate is: " + _gameState.ToString());
-    }
-}
-
-public enum GameState
-{
-    Menu,
-    Playing,
-    Lose
 }
