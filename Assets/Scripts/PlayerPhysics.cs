@@ -30,6 +30,8 @@ public class PlayerPhysics : MonoBehaviour
         playerControls = GetComponent<PlayerControls>();
         rb = GetComponent<Rigidbody>();
         playerControls.OnJump += Jump;
+        
+
         currentJumps = nJumps;
         originPosition = transform.position;
     }

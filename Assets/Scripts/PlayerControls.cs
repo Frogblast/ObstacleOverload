@@ -60,10 +60,12 @@ public class PlayerControls : MonoBehaviour
 
     private void OnJumpStarted(InputAction.CallbackContext context)
     {
+        Debug.Log("Jump started");
     }
 
     private void OnJumpPerformed(InputAction.CallbackContext context)
     {
         OnJump();
+        Debug.Log("Jump performed");
     }
 }
