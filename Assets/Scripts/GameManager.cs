@@ -11,12 +11,11 @@ public class GameManager : MonoBehaviour
     private enum GameState { Menu, Playing, Paused, GameOver}
     private GameState _gameState;
 
-    private Scene _currentLevel; 
-
     // Public methods:
     public void StartGame()
     {
         UpdateGameState(GameState.Playing);
+        PlayerControls.onDeath += GameOver;
     }
 
     public void QuitGame()
@@ -24,7 +23,6 @@ public class GameManager : MonoBehaviour
         Application.Quit();
         Debug.Log("Player quit the game");
     }
-
 
     // Private methods:
     private void Awake()
@@ -38,6 +36,11 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject); // Ensure only one instance of GameManager exists
         }
+    }
+
+    private void GameOver()
+    {
+        UpdateGameState(GameState.GameOver);
     }
 
     private void Start()
@@ -59,8 +62,8 @@ public class GameManager : MonoBehaviour
                 Time.timeScale = 1;
                 break;
             case GameState.GameOver:
-                SceneManager.LoadScene("MainMenu");
-                Time.timeScale = 0;
+                SceneManager.LoadScene("GameOver");
+                Time.timeScale = 1;
                 break;
         }
         Debug.Log("Gamestate updated to: " + _gameState.ToString());

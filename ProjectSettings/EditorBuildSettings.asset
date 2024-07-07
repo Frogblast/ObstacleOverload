@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RandomGeneratedLevel.unity
     guid: 73629c3dc04cd4d42b61b92e2c776488
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: b3914a0c33a6803428d637597bee5d19
   m_configObjects: {}

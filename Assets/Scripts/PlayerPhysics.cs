@@ -20,7 +20,6 @@ public class PlayerPhysics : MonoBehaviour
     [SerializeField] private float maxForwardsDistance = 10f;
     [SerializeField] private float maxBackwardsDistance = 5f;
     private Vector3 originPosition;
-    private Vector3 initialOrientation;
 
 
 
@@ -33,7 +32,6 @@ public class PlayerPhysics : MonoBehaviour
         playerControls.OnJump += Jump;
         currentJumps = nJumps;
         originPosition = transform.position;
-        initialOrientation = rb.transform.rotation.eulerAngles;
     }
 
     private void Jump()
@@ -41,7 +39,6 @@ public class PlayerPhysics : MonoBehaviour
         if (IsGrounded())
         {
             currentJumps = nJumps;
-            // Debug.Log("Available jumps are " + currentJumps);
         }
 
         if ((currentJumps >= 1 && jumpDelay <= 0))
@@ -70,7 +67,6 @@ public class PlayerPhysics : MonoBehaviour
         Vector3 movementForce = adjustedMovement * Time.deltaTime * maxSteeringRatio;
 
         rb.AddForce(movementForce, ForceMode.Impulse);
-      //  RotateShip(moveInput);
     }
 
     private float AdjustForwardMovement(float z) // Caps the forward/backwards movement at a certain distance from origin.
@@ -116,7 +112,6 @@ public class PlayerPhysics : MonoBehaviour
         {
             jumpDelay -= Time.deltaTime;
         }
-        //Debug.Log(jumpDelay);
         Hover();
         Steer();
         ReturnToBaseSpeed();
@@ -134,11 +129,9 @@ public class PlayerPhysics : MonoBehaviour
         if (currentHeight < groundDetectionRange)
         {
             ratio = hoverHeight - currentHeight;
-            // Debug.Log("Hover height ratio: " + ratio);
             if (currentHeight < 2 * groundDetectionRange / 3)
             {
                 ratio = 9.81f + mass * hoverHeight;
-                // Debug.Log("Near ground ratio: " + ratio);
             }
             rb.AddForce(ratio * Vector3.up * mass);
         }

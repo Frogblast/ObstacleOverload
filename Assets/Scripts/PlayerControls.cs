@@ -7,6 +7,10 @@ public class PlayerControls : MonoBehaviour
     //1. Declares the Input Action asset (Created and named in Unity).
     InputActionsAsset input = null;
     //5. Declare a vector for controlling movement.
+
+    public delegate void OnDeath();
+    public static OnDeath onDeath;
+
     public Vector2 MoveVector { get; private set; } = Vector2.zero;
 
     public event Action OnJump = delegate { };
@@ -38,7 +42,8 @@ public class PlayerControls : MonoBehaviour
         input.Gameplay.Movement.canceled -= OnMovementCanceled;
         input.Gameplay.Jump.performed -= OnJumpPerformed;
         input.Gameplay.Jump.started -= OnJumpStarted;
-
+        onDeath?.Invoke();
+        Debug.Log("OnDisable triggered");
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext context)

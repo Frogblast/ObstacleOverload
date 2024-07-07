@@ -18,7 +18,8 @@ public class LethalZone : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Destroy(other.gameObject);
+            Debug.Log("Player hit lethal zone");
         }
     }
 }
