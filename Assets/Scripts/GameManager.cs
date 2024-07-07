@@ -7,18 +7,28 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    private static GameManager _instance;
 
-    public GameState State;
+    private GameState _gameState;
 
     public static event Action<GameState> OnGameStateChanged;
 
     [SerializeField] GameObject _startingPlatform;
     private SpawnMovement _startingPlatformMovementScript;
 
+    // Game manager is a singleton
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance is null) Debug.LogError("Game Manager instance is null");
+            return _instance;
+        }
+    }
+
     private void Awake()
     {
-        Instance = this;
+        _instance = this;
         _startingPlatformMovementScript = _startingPlatform.GetComponent<SpawnMovement>();
     }
 
@@ -31,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGameState(GameState newState)
     {
-        State = newState;
+        _gameState = newState;
         switch (newState)
         {
             case GameState.Playing:
@@ -41,9 +51,11 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newState);
     }
 
-    private void StartLevel()
+    public void StartLevel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        UpdateGameState(GameState.Playing);
+        Debug.Log("Gamestate is: " + _gameState.ToString());
     }
 }
 
