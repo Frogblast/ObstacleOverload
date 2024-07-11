@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         UpdateGameState(GameState.Playing);
-        PlayerControls.onDeath += GameOver;
+        PlayerPhysics.onDeath += GameOver;
     }
 
     public void QuitGame()

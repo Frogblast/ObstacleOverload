@@ -5,67 +5,34 @@ using UnityEngine.InputSystem;
 public class PlayerControls : MonoBehaviour
 {
     //1. Declares the Input Action asset (Created and named in Unity).
-    InputActionsAsset input = null;
+    InputActionsAsset input;
     //5. Declare a vector for controlling movement.
-
-    public delegate void OnDeath();
-    public static OnDeath onDeath;
-
     public Vector2 MoveVector { get; private set; } = Vector2.zero;
+    private float JumpButtonDuration { get; set; } = 0f;
+        
+    [SerializeField] private float maxPressLength = 1f;
 
-    public event Action OnJump = delegate { };
+    public Action<float> OnJump;
 
-    private void Awake()
+    private void Start()
     {
-        //2. Get reference to the Input Action asset. Use 'new' operator when using the generated c# script.
+        //2. Make Input Action asset.
         input = new InputActionsAsset();
     }
 
-    private void OnEnable()
-    {   
-        //3. Enable the input asset.
-        input.Enable();
-        //3. Subscribe to the events (performed, canceled etc.) found deep in the input asset for each function.
-        input.Gameplay.Movement.performed += OnMovementPerformed;
-        input.Gameplay.Movement.canceled += OnMovementCanceled;
-        input.Gameplay.Jump.performed += OnJumpPerformed;
-        input.Gameplay.Jump.started += OnJumpStarted;
-    }
-
-
-    private void OnDisable()
-    {
-        //3. Disable when not used.
-        input.Disable();
-        //3. Unsubscribe to the events (performed, canceled etc.) for each function.
-        input.Gameplay.Movement.performed -= OnMovementPerformed;
-        input.Gameplay.Movement.canceled -= OnMovementCanceled;
-        input.Gameplay.Jump.performed -= OnJumpPerformed;
-        input.Gameplay.Jump.started -= OnJumpStarted;
-        onDeath?.Invoke();
-        Debug.Log("OnDisable triggered");
-    }
-
-    private void OnMovementPerformed(InputAction.CallbackContext context)
+    public void Movement(InputAction.CallbackContext context)
     {
         //4. Use InputAction.CallbackContext to be able to subscribe to the event (delegate system).
         MoveVector = context.ReadValue<Vector2>();
     }
 
-    private void OnMovementCanceled(InputAction.CallbackContext context)
+
+    public void Jump(InputAction.CallbackContext context)
     {
-        MoveVector = Vector2.zero;
+        float ratio = Mathf.Min((float)context.duration, maxPressLength);
+        Debug.Log("Duration: " + context.duration);
+        Debug.Log("Ratio: " + ratio);
+        OnJump(ratio);
     }
 
-
-    private void OnJumpStarted(InputAction.CallbackContext context)
-    {
-        Debug.Log("Jump started");
-    }
-
-    private void OnJumpPerformed(InputAction.CallbackContext context)
-    {
-        OnJump();
-        Debug.Log("Jump performed");
-    }
 }

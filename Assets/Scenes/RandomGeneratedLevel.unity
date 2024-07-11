@@ -2698,6 +2698,84 @@ Transform:
   m_Father: {fileID: 1684632494}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 25.96, y: 0, z: 0}
+--- !u!1 &2040871936 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3108399854521554611, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+  m_PrefabInstance: {fileID: 3108399854188203920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2040871938 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3108399854521554614, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+  m_PrefabInstance: {fileID: 3108399854188203920}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040871936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39aaee17b04056c429e817117af1e5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2040871941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2040871936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 2c681a7911a681d4dae42eff6e0ba194, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2040871938}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: Movement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 79ba2801-966d-4a8c-930c-603e25cadb2d
+    m_ActionName: Gameplay/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d,/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2040871938}
+        m_TargetAssemblyTypeName: PlayerControls, Assembly-CSharp
+        m_MethodName: Jump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 72d9757f-2a3d-49ca-aa04-162605a01e88
+    m_ActionName: Gameplay/Jump[/Keyboard/space]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Gameplay
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &2067164554
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3017,11 +3095,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108399854521554616, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForce
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3108399854521554616, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: hoverHeight
-      value: 9
+      value: 8.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3108399854521554616, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: maxRotation
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 3108399854521554616, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: forwardSpeed
@@ -3029,7 +3111,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3108399854521554616, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: tapJumpForce
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3108399854521554616, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: maxForwardsDistance

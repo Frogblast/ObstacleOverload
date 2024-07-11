@@ -38,11 +38,11 @@ public partial class @InputActionsAsset: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Jump"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Button"",
                     ""id"": ""72d9757f-2a3d-49ca-aa04-162605a01e88"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """",
+                    ""interactions"": ""SlowTap"",
                     ""initialStateCheck"": true
                 }
             ],

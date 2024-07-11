@@ -7,21 +7,24 @@ public class PlayerPhysics : MonoBehaviour
     private PlayerControls playerControls;
     private Rigidbody rb;
 
-    [SerializeField] private float steeringSpeed = 30f;
-    [SerializeField] private float forwardSpeed = 10;
-    [SerializeField] private float jumpForce = 14f;
-    [SerializeField] private float tapJumpForce = 7f;
+    [SerializeField] private float steeringSpeed = 25f;
+    [SerializeField] private float forwardSpeed = 0.9f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float tapJumpForce = 5f;
     [SerializeField] private int nJumps = 1;
-    [SerializeField] private float hoverHeight = 10f;
-    [SerializeField] private float maxRotation = 45f;
+    [SerializeField] private float hoverHeight = 8.5f;
+    [SerializeField] private float maxRotation = 35f;
     private int currentJumps;
-    [SerializeField] private float groundDetectionRange = 100f;
+    [SerializeField] private float groundDetectionRange = 1f;
     [SerializeField] private float minJumpFrequency = 0.2f;
-    [SerializeField] private float maxForwardsDistance = 10f;
-    [SerializeField] private float maxBackwardsDistance = 5f;
+    [SerializeField] private float maxForwardsDistance = 15f;
+    [SerializeField] private float maxBackwardsDistance = 10f;
     private Vector3 originPosition;
 
+    public delegate void OnDeath();
+    public static OnDeath onDeath;
 
+    private bool isJumping;
 
     private float jumpDelay;
 
@@ -30,23 +33,34 @@ public class PlayerPhysics : MonoBehaviour
         playerControls = GetComponent<PlayerControls>();
         rb = GetComponent<Rigidbody>();
         playerControls.OnJump += Jump;
-        
 
+        isJumping = false;
         currentJumps = nJumps;
         originPosition = transform.position;
     }
 
-    private void Jump()
+    private void OnDestroy()
+    {
+        onDeath();
+    }
+
+    private void Jump(float pressDuration)
     {
         if (IsGrounded())
         {
             currentJumps = nJumps;
+            isJumping = false;
         }
 
-        if ((currentJumps >= 1 && jumpDelay <= 0))
+        //float jumpMultiplier = pressDuration >= 0.1f ? jumpForce : tapJumpForce;
+        float jumpMultiplier = pressDuration*10;
+        Debug.Log("jumpMultiplier: " + jumpMultiplier);
+        if ((currentJumps >= 1))
         {
             currentJumps--;
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+//            rb.AddForce(Vector3.up * jumpMultiplier, ForceMode.Impulse);
+            rb.AddForce(Vector3.up * jumpMultiplier * jumpForce, ForceMode.Impulse);
+            Debug.Log("Added force: " + jumpMultiplier);
             jumpDelay = minJumpFrequency;
         }
     }
