@@ -8,16 +8,15 @@ public class PlayerControls : MonoBehaviour
     InputActionsAsset input;
     //5. Declare a vector for controlling movement.
     public Vector2 MoveVector { get; private set; } = Vector2.zero;
-    private float JumpButtonDuration { get; set; } = 0f;
-        
-    [SerializeField] private float maxPressLength = 1f;
+    public bool JumpButtonPressed { get; private set; } = false;
 
-    public Action<float> OnJump;
+    private PlayerPhysics playerPhysics;
 
     private void Start()
     {
         //2. Make Input Action asset.
         input = new InputActionsAsset();
+        playerPhysics = GetComponent<PlayerPhysics>();
     }
 
     public void Movement(InputAction.CallbackContext context)
@@ -29,10 +28,15 @@ public class PlayerControls : MonoBehaviour
 
     public void Jump(InputAction.CallbackContext context)
     {
-        float ratio = Mathf.Min((float)context.duration, maxPressLength);
-        Debug.Log("Duration: " + context.duration);
-        Debug.Log("Ratio: " + ratio);
-        OnJump(ratio);
+        if (context.started)
+        {
+            playerPhysics.ResetJumpTimer();
+            playerPhysics.isJumping = true;
+        }
+        else if(context.canceled || context.performed)
+        {
+            playerPhysics.ResetJumpTimer();
+            playerPhysics.isJumping = false;
+        }
     }
-
 }

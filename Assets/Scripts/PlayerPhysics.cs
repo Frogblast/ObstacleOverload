@@ -10,10 +10,10 @@ public class PlayerPhysics : MonoBehaviour
     [SerializeField] private float steeringSpeed = 25f;
     [SerializeField] private float forwardSpeed = 0.9f;
     [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float tapJumpForce = 5f;
+    [SerializeField] private float maxJumpTime = 10f;
+    private float jumpTimer = 0f;
     [SerializeField] private int nJumps = 1;
     [SerializeField] private float hoverHeight = 8.5f;
-    [SerializeField] private float maxRotation = 35f;
     private int currentJumps;
     [SerializeField] private float groundDetectionRange = 1f;
     [SerializeField] private float minJumpFrequency = 0.2f;
@@ -24,19 +24,26 @@ public class PlayerPhysics : MonoBehaviour
     public delegate void OnDeath();
     public static OnDeath onDeath;
 
-    private bool isJumping;
-
+    public bool isJumping = false;
     private float jumpDelay;
 
     private void Awake()
     {
         playerControls = GetComponent<PlayerControls>();
         rb = GetComponent<Rigidbody>();
-        playerControls.OnJump += Jump;
 
-        isJumping = false;
+
+
         currentJumps = nJumps;
         originPosition = transform.position;
+    }
+
+
+
+    internal void ResetJumpTimer()
+    {
+        Debug.Log("Jump timer reset");
+        jumpTimer = 0f;
     }
 
     private void OnDestroy()
@@ -44,27 +51,21 @@ public class PlayerPhysics : MonoBehaviour
         onDeath();
     }
 
-    private void Jump(float pressDuration)
+    private void ApplyJumpForce()
     {
+        Debug.Log("ApplyJumpForce");
         if (IsGrounded())
         {
             currentJumps = nJumps;
-            isJumping = false;
         }
 
-        //float jumpMultiplier = pressDuration >= 0.1f ? jumpForce : tapJumpForce;
-        float jumpMultiplier = pressDuration*10;
-        Debug.Log("jumpMultiplier: " + jumpMultiplier);
-        if ((currentJumps >= 1))
+        if (IsGrounded() && jumpTimer < maxJumpTime)
         {
             currentJumps--;
-//            rb.AddForce(Vector3.up * jumpMultiplier, ForceMode.Impulse);
-            rb.AddForce(Vector3.up * jumpMultiplier * jumpForce, ForceMode.Impulse);
-            Debug.Log("Added force: " + jumpMultiplier);
-            jumpDelay = minJumpFrequency;
+            rb.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
+            jumpTimer += Time.deltaTime;
         }
     }
-
 
     private bool IsGrounded()
     {
@@ -133,12 +134,20 @@ public class PlayerPhysics : MonoBehaviour
         ReturnToBaseSpeed();
     }
 
+    private void Update()
+    {
+        if (isJumping)
+        {
+            ApplyJumpForce();
+        }
+    }
+
     private void Hover()
     {
         float ratio;
         float mass = rb.mass;
-        float currentHeight = CalculateRayDistance(Vector3.down);        
-        
+        float currentHeight = CalculateRayDistance(Vector3.down);
+
         // CalculateRayDistance yields 0 if nothing is hit and so the player would fly up forever. Therefore this ugly bugfix.
         currentHeight = (currentHeight == 0) ? groundDetectionRange + 1 : currentHeight;
 
