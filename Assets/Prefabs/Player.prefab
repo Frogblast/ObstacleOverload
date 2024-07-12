@@ -128,6 +128,7 @@ GameObject:
   - component: {fileID: 3108399854521554615}
   - component: {fileID: 3108399854521554614}
   - component: {fileID: 3108399854521554616}
+  - component: {fileID: 3751977233929419245}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -205,17 +206,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd4b3f1b2f84c74996bdb22d86dedf9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  steeringSpeed: 25
-  forwardSpeed: 0.5
-  jumpForce: 6
-  tapJumpForce: 7
-  nJumps: 2
-  hoverHeight: 10
-  maxRotation: 45
   groundDetectionRange: 1
+  hoverHeight: 8.5
+--- !u!114 &3751977233929419245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3108399854521554611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfd5a2ae80887384e96f10d4b9bb5630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steeringSpeed: 25
   minJumpFrequency: 0.2
-  maxForwardsDistance: 10
-  maxBackwardsDistance: 5
+  maxForwardsDistance: 15
+  maxBackwardsDistance: 10
+  forwardSpeed: 0.9
+  nJumps: 1
+  isJumping: 0
+  jumpForce: 10
+  maxJumpTime: 10
 --- !u!1 &3108399855016846540
 GameObject:
   m_ObjectHideFlags: 0

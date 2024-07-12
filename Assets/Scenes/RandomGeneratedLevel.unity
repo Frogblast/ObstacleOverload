@@ -3129,6 +3129,14 @@ PrefabInstance:
       propertyPath: maxBackwardsDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: jumpForce
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: jumpForceMinimum
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4750707339148618209, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: emissionStrength
       value: 40

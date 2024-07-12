@@ -6,37 +6,44 @@ public class PlayerControls : MonoBehaviour
 {
     //1. Declares the Input Action asset (Created and named in Unity).
     InputActionsAsset input;
-    //5. Declare a vector for controlling movement.
-    public Vector2 MoveVector { get; private set; } = Vector2.zero;
-    public bool JumpButtonPressed { get; private set; } = false;
+    private Vector2 moveVector = Vector2.zero;
+  //  public bool JumpButtonPressed { get; private set; } = false;
 
-    private PlayerPhysics playerPhysics;
+    private MovementHandler movementHandler;
+    private ShipAnimation shipAnimation;
 
-    private void Start()
+    private void Awake()
     {
         //2. Make Input Action asset.
         input = new InputActionsAsset();
-        playerPhysics = GetComponent<PlayerPhysics>();
+        movementHandler = GetComponent<MovementHandler>();
+        shipAnimation = GetComponentInChildren<ShipAnimation>();
+
+    }
+
+    private void FixedUpdate()
+    {
+        movementHandler.Steer(moveVector);
+        shipAnimation.HandleEngineEmission(moveVector);
+        shipAnimation.RotateShip(moveVector);
     }
 
     public void Movement(InputAction.CallbackContext context)
     {
-        //4. Use InputAction.CallbackContext to be able to subscribe to the event (delegate system).
-        MoveVector = context.ReadValue<Vector2>();
+        moveVector = context.ReadValue<Vector2>();
     }
-
 
     public void Jump(InputAction.CallbackContext context)
     {
         if (context.started)
         {
-            playerPhysics.ResetJumpTimer();
-            playerPhysics.isJumping = true;
+            movementHandler.ResetJumpTimer();
+            movementHandler.isJumping = true;
         }
-        else if(context.canceled || context.performed)
+        else if (context.canceled || context.performed)
         {
-            playerPhysics.ResetJumpTimer();
-            playerPhysics.isJumping = false;
+            movementHandler.ResetJumpTimer();
+            movementHandler.isJumping = false;
         }
     }
 }

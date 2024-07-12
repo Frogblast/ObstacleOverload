@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ShipAnimation : MonoBehaviour
 {
-    private PlayerControls _playerControls;
 
     [SerializeField, Range(0.01f, 2)] private float rotationSmoothness = 0.05f;
     [SerializeField, Range(2, 20)] private float orientationResetMultiplier = 10f;
@@ -27,40 +26,31 @@ public class ShipAnimation : MonoBehaviour
         _currentOrientation = transform.rotation;
         _initialOrientation = transform.rotation;
         _nextRotation = transform.rotation;
-        _playerControls = GetComponentInParent<PlayerControls>();
         _meshRenderer = GetComponent<MeshRenderer>();
         emission = _meshRenderer.materials[2];
         _currentIntensity = emissionStrength;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    public void HandleEngineEmission(Vector2 moveVector)
     {
-        RotateShip();
-        HandleEngineEmission();
-    }
-
-    private void HandleEngineEmission()
-    {
-        if (_playerControls.MoveVector.y > 0.5)
+        if (moveVector.y > 0.5)
         {
             _currentIntensity++;
         }
-        if (_playerControls.MoveVector.y < 0.5)
+        if (moveVector.y < 0.5)
         {
             _currentIntensity--;
         }
         emission.SetColor("_EmissionColor", emission.color * _currentIntensity * intensityMultiplier);
         _currentIntensity = Mathf.Clamp(_currentIntensity, minIntensity, maxIntensity);
-
     }
 
-    private void RotateShip()
+    public void RotateShip(Vector2 moveVector)
     {
         float rotationSpeedMultiplier = 1;
-        if (Mathf.Abs(_playerControls.MoveVector.x) > 0.5)
+        if (Mathf.Abs(moveVector.x) > 0.5)
         {
-            _nextRotation *= Quaternion.Euler(_playerControls.MoveVector.x * rotationSpeed, 0, 0);
+            _nextRotation *= Quaternion.Euler(moveVector.x * rotationSpeed, 0, 0);
         }
         else
         {
