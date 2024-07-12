@@ -38,7 +38,10 @@ public class PlayerPhysics : MonoBehaviour
     {
         rb.AddForce(movementForce, forceMode);
     }
-
+    internal void ApplyMovement(Vector3 movementForce)
+    {
+        rb.AddForce(movementForce);
+    }
 
     private void FixedUpdate()
     {
@@ -61,6 +64,7 @@ public class PlayerPhysics : MonoBehaviour
             {
                 ratio = 9.81f + mass * hoverHeight;
             }
+            if (ratio < hoverHeight/2) ratio = 0;
             rb.AddForce(ratio * Vector3.up * mass);
         }
     }

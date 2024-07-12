@@ -13,9 +13,10 @@ public class MovementHandler : MonoBehaviour
     public bool isJumping = false;
     private bool initialJumpDone = false;
     private float jumpDelay;
-    [SerializeField] private float jumpForce = 80f;
-    [SerializeField] private float jumpForceMinimum = 80f;
-    [SerializeField] private float maxJumpTime = 1f;
+    [SerializeField] private float jumpForceAdded = 40f;
+    [SerializeField] private float jumpForceInitial = 50f;
+    [SerializeField] private float maxJumpTime = 0.2f;
+
     private float jumpTimer = 0f;
     private int currentJumps;
     private Vector3 originPosition;
@@ -99,19 +100,24 @@ public class MovementHandler : MonoBehaviour
     {
         if (playerPhysics.IsGrounded())
         {
+            ResetJumpTimer();
             currentJumps = nJumps;
             initialJumpDone = false;
         }
 
-        if (playerPhysics.IsGrounded() && jumpTimer < maxJumpTime)
+        if (currentJumps > 0 && !initialJumpDone)
         {
+            Debug.Log("Initial jump done");
             currentJumps--;
-            if (!initialJumpDone)
-            {
-                initialJumpDone = true;
-                playerPhysics.ApplyMovement(Vector3.up * jumpForceMinimum * Time.deltaTime, ForceMode.Impulse);
-            }
-            playerPhysics.ApplyMovement(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
+            initialJumpDone = true;
+            playerPhysics.ApplyMovement(Vector3.up * jumpForceInitial * Time.deltaTime, ForceMode.VelocityChange);
+        }
+
+        if (initialJumpDone && jumpTimer < maxJumpTime)
+        {
+            Debug.Log("Additional jump force applied");
+            playerPhysics.ApplyMovement(Vector3.up * jumpForceAdded * Time.deltaTime, ForceMode.VelocityChange);
+
             jumpTimer += Time.deltaTime;
             if (jumpTimer >= maxJumpTime)
             {

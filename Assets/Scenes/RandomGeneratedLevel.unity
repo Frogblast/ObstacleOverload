@@ -3134,8 +3134,12 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: maxJumpTime
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForceMinimum
-      value: 25
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4750707339148618209, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: emissionStrength
