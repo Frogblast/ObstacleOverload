@@ -15,8 +15,8 @@ public class MovementHandler : MonoBehaviour
     private bool initialJumpDone = false;
     private float jumpDelay;
     [SerializeField] private float jumpForceAdded = 40f;
-    [SerializeField] private float jumpForceInitial = 50f;
-    [SerializeField] private float maxJumpTime = 0.2f;
+    [SerializeField] private float jumpForceInitial = 70f;
+    [SerializeField] private float maxJumpTime = 0.4f; // Time in seconds that the jump force can be added
 
     private float jumpTimer = 0f;
     private int currentJumps;
@@ -38,6 +38,10 @@ public class MovementHandler : MonoBehaviour
         if (isJumping)
         {
             ApplyJumpForce();
+        }
+        if (initialJumpDone)
+        {
+            jumpTimer += Time.deltaTime;
         }
     }
 
@@ -99,14 +103,15 @@ public class MovementHandler : MonoBehaviour
 
     private void ApplyJumpForce()
     {
-        if (playerPhysics.IsGrounded())
+        bool isGrounded = playerPhysics.IsGrounded();
+        if (isGrounded)
         {
-            ResetJumpTimer();
+            jumpTimer = 0f;
             currentJumps = nJumps;
             initialJumpDone = false;
         }
 
-        if (currentJumps > 0 && !initialJumpDone)
+        if (!initialJumpDone && isGrounded && currentJumps > 0)
         {
             Debug.Log("Initial jump done");
             currentJumps--;
@@ -116,20 +121,15 @@ public class MovementHandler : MonoBehaviour
 
         if (initialJumpDone && jumpTimer < maxJumpTime)
         {
-            Debug.Log("Additional jump force applied");
+
             playerPhysics.ApplyMovement(Vector3.up * jumpForceAdded * Time.deltaTime, ForceMode.VelocityChange);
 
-            jumpTimer += Time.deltaTime;
-            if (jumpTimer >= maxJumpTime)
-            {
-                Debug.Log("Jump time up");
-            }
         }
-    }
 
-    internal void ResetJumpTimer()
-    {
-        jumpTimer = 0f;
+        if (jumpTimer >= maxJumpTime)
+        {
+            Debug.Log("Jump time up");
+        }
     }
 
 

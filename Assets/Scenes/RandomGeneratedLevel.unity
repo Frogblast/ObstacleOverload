@@ -3130,16 +3130,32 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: nJumps
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForce
-      value: 100
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: maxJumpTime
-      value: 0.06
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: jumpForceAdded
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: jumpForceInitial
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForceMinimum
-      value: 40
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
+      propertyPath: minJumpFrequency
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4750707339148618209, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: emissionStrength

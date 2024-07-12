@@ -6,6 +6,7 @@ public class EnvironmentSpawner : MonoBehaviour
     [SerializeField] private float gap = 10f;
     [SerializeField] private float spawnFrequencyMultiplier = 1.1f;
     [SerializeField] private float locationVarietyX = 5f;
+    [SerializeField] private float locationVarietyY = 1f;
     [SerializeField] private float locationVarietyZ = 10f;
     [SerializeField] private float randomFrequencyAmount = 0f;
 
@@ -51,7 +52,7 @@ public class EnvironmentSpawner : MonoBehaviour
 
             newSpawn = PickRandomSpawnObject();
             nextLocation = new Vector3(transform.position.x + RandomFloat(-locationVarietyX, locationVarietyX),
-                                           0, transform.position.z + RandomFloat(-locationVarietyZ, locationVarietyZ));
+                                           RandomFloat(-locationVarietyY, locationVarietyY), transform.position.z + RandomFloat(-locationVarietyZ, locationVarietyZ));
             
             float spawnObjectLength = newSpawn.GetComponentInChildren<Renderer>().bounds.size.z;
             float nextSpawnTime = TimeBetweenSpawns(spawnObjectLength);

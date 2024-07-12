@@ -37,12 +37,10 @@ public class PlayerControls : MonoBehaviour
     {
         if (context.started)
         {
-          //  movementHandler.ResetJumpTimer();
             movementHandler.isJumping = true;
         }
         else if (context.canceled || context.performed)
         {
-         //   movementHandler.ResetJumpTimer();
             movementHandler.isJumping = false;
         }
     }
