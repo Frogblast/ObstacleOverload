@@ -14,15 +14,23 @@ public class MovementHandler : MonoBehaviour
     public bool isJumping = false;
     private bool initialJumpDone = false;
     private float jumpDelay;
-    [SerializeField] private float jumpForceAdded = 40f;
-    [SerializeField] private float jumpForceInitial = 70f;
-    [SerializeField] private float maxJumpTime = 0.4f; // Time in seconds that the jump force can be added
+    [SerializeField] private float jumpForceAdded = 100f;
+    [SerializeField] private float jumpForceInitial = 40f;
+    [SerializeField] private float maxJumpTime = 0.2f; // Time in seconds that the jump force can be added
+    [SerializeField] private float addedForceTimeStart = 0.05f;
+
 
     private float jumpTimer = 0f;
+    [SerializeField] private float edgeJumpHelpTime = .5f;
+    private float nonGroundedTimer = 0f;
     private int currentJumps;
     private Vector3 originPosition;
 
     private PlayerPhysics playerPhysics;
+
+
+    public static event System.Action OnJump;
+    
 
     private void FixedUpdate()
     {
@@ -37,11 +45,30 @@ public class MovementHandler : MonoBehaviour
     {
         if (isJumping)
         {
-            ApplyJumpForce();
+            Jump();
         }
+        edgeJumpHandicap();
+
         if (initialJumpDone)
         {
             jumpTimer += Time.deltaTime;
+        }
+    }
+
+    private bool isGroundedWithMargin()
+    {
+        return nonGroundedTimer < edgeJumpHelpTime;
+    }
+
+    private void edgeJumpHandicap()
+    {
+        if (!playerPhysics.IsGrounded())
+        {
+            nonGroundedTimer += Time.deltaTime;
+        }
+        else
+        {
+            nonGroundedTimer = 0f;
         }
     }
 
@@ -101,29 +128,29 @@ public class MovementHandler : MonoBehaviour
 
     // Jumping
 
-    private void ApplyJumpForce()
+    private void Jump()
     {
-        bool isGrounded = playerPhysics.IsGrounded();
-        if (isGrounded)
+       // bool isGrounded = playerPhysics.IsGrounded();
+        if (isGroundedWithMargin())
         {
+            Debug.Log("Timer reset and grounded");
             jumpTimer = 0f;
             currentJumps = nJumps;
             initialJumpDone = false;
         }
 
-        if (!initialJumpDone && isGrounded && currentJumps > 0)
+        if (!initialJumpDone && isGroundedWithMargin() && currentJumps > 0)
         {
+            OnJump?.Invoke();
             Debug.Log("Initial jump done");
             currentJumps--;
             initialJumpDone = true;
             playerPhysics.ApplyMovement(Vector3.up * jumpForceInitial * Time.deltaTime, ForceMode.VelocityChange);
-        }
-
-        if (initialJumpDone && jumpTimer < maxJumpTime)
+        } 
+        else if (initialJumpDone && jumpTimer > addedForceTimeStart && jumpTimer < maxJumpTime)
         {
-
+           // Debug.Log("Added force");
             playerPhysics.ApplyMovement(Vector3.up * jumpForceAdded * Time.deltaTime, ForceMode.VelocityChange);
-
         }
 
         if (jumpTimer >= maxJumpTime)
