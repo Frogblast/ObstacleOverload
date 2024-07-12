@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MovementHandler : MonoBehaviour
 {
-    [SerializeField] private float steeringSpeed = 25f;[SerializeField] private float minJumpFrequency = 0.2f;
+    [SerializeField] private float steeringSpeed = 25f;
+    [SerializeField] private float minJumpFrequency = 0.2f;
     [SerializeField] private float maxForwardsDistance = 15f;
     [SerializeField] private float maxBackwardsDistance = 10f;
     [SerializeField] private float forwardSpeed = 0.9f;
