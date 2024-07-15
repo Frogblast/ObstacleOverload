@@ -51,8 +51,6 @@ public class ShipAnimation : MonoBehaviour
         float rotationSpeedMultiplier = 1;
         if (Mathf.Abs(moveVector.x) > 0.5)
         {
-            Debug.Log(_nextRotation.eulerAngles.x <= rotationCap);
-            Debug.Log(_nextRotation.eulerAngles.x);
             float rotationCapCalculated = rotationCap + 270f;
 
             if (_nextRotation.eulerAngles.x <= Mathf.Abs(rotationCapCalculated))

@@ -7,7 +7,6 @@ public class Statistics : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI speedText;
     [SerializeField] private TextMeshProUGUI timer;
-    private float _currentSpeed = 0f;
     private float _currentTime = 0f;
     private string speedTextDefault;
     private string timerTextDefault;
@@ -17,7 +16,7 @@ public class Statistics : MonoBehaviour
     
 
     private void Awake(){
-        speedTextDefault = "Current speed: ";
+        speedTextDefault = "Level: ";
         speedText.text = speedTextDefault + 0;
         timerTextDefault = "Time passed: ";
     }
@@ -41,11 +40,10 @@ public class Statistics : MonoBehaviour
     }
 
     private void OnEnable(){
-        DifficultyManager.OnIncreaseDifficulty += UpdateSpeedText;
+        DifficultyManager.OnIncreaseLevel += UpdateSpeedText;
     }
 
-    private void UpdateSpeedText(float baseSpeed, float amount){
-        _currentSpeed += amount;
-        speedText.text = speedTextDefault + _currentSpeed;
+    private void UpdateSpeedText(int level){
+        speedText.text = speedTextDefault + level;
     }
 }
