@@ -4,7 +4,5 @@ using UnityEngine;
 
 public class Platform : MonoBehaviour
 {
-    public int Difficulty { get; private set; }
     public int Speed { get; private set; }
-
 }

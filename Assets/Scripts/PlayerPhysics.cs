@@ -50,7 +50,6 @@ public class PlayerPhysics : MonoBehaviour
 
     private void Hover()
     {
-        float ratio;
         float mass = rb.mass;
         float currentHeight = CalculateRayDistance(Vector3.down);
 
@@ -59,7 +58,7 @@ public class PlayerPhysics : MonoBehaviour
 
         if (currentHeight < groundDetectionRange && rb.velocity.y < 0)
         {
-            ratio = 9.81f + mass * hoverHeight;
+            float ratio = 9.81f + mass * hoverHeight;
             rb.AddForce(ratio * Vector3.up * mass);
         }
     }

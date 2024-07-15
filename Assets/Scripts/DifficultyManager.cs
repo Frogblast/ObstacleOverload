@@ -16,7 +16,7 @@ public class DifficultyManager : MonoBehaviour
 
     [SerializeField] private int levelUpTime = 30;
     private float timeUntilIncreaseLevel = 0;
-    private int _currentLevel = 0;
+    private int _currentLevel = 1; // Starts at level 1
     private float timeUntilIncreaseSpeed = 0;
 
 

@@ -10,14 +10,11 @@ public class Statistics : MonoBehaviour
     private float _currentTime = 0f;
     private string speedTextDefault;
     private string timerTextDefault;
-
-    // TODO: action event for each difficulty increase with time as argument. Used to call methods in different classes depending on how far into the game it is: new spawnObjects, music, atmosphere, text messages etc.
-
     
 
     private void Awake(){
         speedTextDefault = "Level: ";
-        speedText.text = speedTextDefault + 0;
+        speedText.text = speedTextDefault + 1; // Set 1 as the starting level
         timerTextDefault = "Time passed: ";
     }
 
