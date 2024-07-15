@@ -20,7 +20,6 @@ public class Statistics : MonoBehaviour
         speedTextDefault = "Current speed: ";
         speedText.text = speedTextDefault + 0;
         timerTextDefault = "Time passed: ";
-
     }
 
     private void FixedUpdate() {
@@ -29,7 +28,16 @@ public class Statistics : MonoBehaviour
 
     private void UpdateTimer(){
         _currentTime += Time.deltaTime;
-        timer.text = timerTextDefault + _currentTime.ToString("#.#");
+        timer.text = timerTextDefault + FormatTime(_currentTime);
+    }
+
+    private string FormatTime(float timeInSeconds)
+    {
+        int minutes = (int)timeInSeconds / 60;
+        int seconds = (int)timeInSeconds % 60;
+        int decimals = (int)((timeInSeconds - (int)timeInSeconds) * 100);
+
+        return $"{minutes:D2}:{seconds:D2}:{decimals:D2}";
     }
 
     private void OnEnable(){

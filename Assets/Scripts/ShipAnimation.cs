@@ -8,6 +8,7 @@ public class ShipAnimation : MonoBehaviour
     [SerializeField, Range(0.01f, 2)] private float rotationSmoothness = 0.05f;
     [SerializeField, Range(2, 20)] private float orientationResetMultiplier = 10f;
     [SerializeField, Range(50, 200)] private float rotationSpeed = 100f;
+    [SerializeField, Range(0, 90)] private float rotationCap = 35f; 
     [SerializeField] private float emissionStrength = 15f;
     [SerializeField] private float intensityMultiplier = 2f;
     [SerializeField] private float maxIntensity = 40f;
@@ -50,7 +51,14 @@ public class ShipAnimation : MonoBehaviour
         float rotationSpeedMultiplier = 1;
         if (Mathf.Abs(moveVector.x) > 0.5)
         {
-            _nextRotation *= Quaternion.Euler(moveVector.x * rotationSpeed, 0, 0);
+            Debug.Log(_nextRotation.eulerAngles.x <= rotationCap);
+            Debug.Log(_nextRotation.eulerAngles.x);
+            float rotationCapCalculated = rotationCap + 270f;
+
+            if (_nextRotation.eulerAngles.x <= Mathf.Abs(rotationCapCalculated))
+            {
+                _nextRotation *= Quaternion.Euler(moveVector.x * rotationSpeed, 0, 0);
+            }
         }
         else
         {

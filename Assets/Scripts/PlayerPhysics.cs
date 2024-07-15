@@ -57,14 +57,9 @@ public class PlayerPhysics : MonoBehaviour
         // CalculateRayDistance yields 0 if nothing is hit and so the player would fly up forever. Therefore this ugly bugfix.
         currentHeight = (currentHeight == 0) ? groundDetectionRange + 1 : currentHeight;
 
-        if (currentHeight < groundDetectionRange)
+        if (currentHeight < groundDetectionRange && rb.velocity.y < 0)
         {
-            ratio = hoverHeight - currentHeight;
-            if (currentHeight < 2 * groundDetectionRange / 3)
-            {
-                ratio = 9.81f + mass * hoverHeight;
-            }
-            if (ratio < hoverHeight/2) ratio = 0;
+            ratio = 9.81f + mass * hoverHeight;
             rb.AddForce(ratio * Vector3.up * mass);
         }
     }
