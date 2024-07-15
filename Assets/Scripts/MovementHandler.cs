@@ -142,7 +142,6 @@ public class MovementHandler : MonoBehaviour
         if (!initialJumpDone && isGroundedWithMargin() && currentJumps > 0)
         {
             OnJump?.Invoke();
-            Debug.Log("Initial jump done");
             currentJumps--;
             initialJumpDone = true;
             playerPhysics.ApplyMovement(Vector3.up * jumpForceInitial * Time.deltaTime, ForceMode.VelocityChange);
