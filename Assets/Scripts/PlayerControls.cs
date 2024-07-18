@@ -7,7 +7,6 @@ public class PlayerControls : MonoBehaviour
     //1. Declares the Input Action asset (Created and named in Unity).
     InputActionsAsset input;
     private Vector2 moveVector = Vector2.zero;
-  //  public bool JumpButtonPressed { get; private set; } = false;
 
     private MovementHandler movementHandler;
     private ShipAnimation shipAnimation;
@@ -38,11 +37,11 @@ public class PlayerControls : MonoBehaviour
     {
         if (context.started)
         {
-            movementHandler.isJumping = true;
+            movementHandler.StartJump();
         }
         else if (context.canceled || context.performed)
         {
-            movementHandler.isJumping = false;
+            movementHandler.StopJump();
         }
     }
 }

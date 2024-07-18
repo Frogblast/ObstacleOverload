@@ -50,47 +50,22 @@ public class MovementHandler : MonoBehaviour
     {
         if (isJumping)
         {
-            Jump();
+            ApplyJumpForce();
+            jumpTimer += Time.deltaTime;
+            if(jumpTimer > maxJumpTime)
+            {
+                Debug.Log("Jump time out");
+            }
         }
         edgeJumpHandicap();
-
-        if (initialJumpDone)
-        {
-            jumpTimer += Time.deltaTime;
-        }
-
     }
 
-    private bool isGroundedWithMargin()
-    {
-        return nonGroundedTimer < edgeJumpHelpTime;
-    }
-
-    private void edgeJumpHandicap()
-    {
-        if (!playerPhysics.IsGrounded())
-        {
-            nonGroundedTimer += Time.deltaTime;
-        }
-        else
-        {
-            nonGroundedTimer = 0f;
-        }
-    }
 
     private void Awake()
     {
         playerPhysics = GetComponent<PlayerPhysics>();
         currentJumps = nJumps;
         originPosition = playerPhysics.transform.position;
-    }
-
-    internal void Land(Vector2 moveVector)
-    {
-        if (moveVector.y < 0)
-        {
-            playerPhysics.ApplyMovement(Vector3.down * landingForce);
-        }
     }
 
     public void Steer(Vector2 moveInput2D)
@@ -141,34 +116,77 @@ public class MovementHandler : MonoBehaviour
     }
 
     // Jumping
-
-    private void Jump()
+    public void StartJump()
     {
-       // bool isGrounded = playerPhysics.IsGrounded();
+        // Reset the jump
         if (isGroundedWithMargin())
         {
-            Debug.Log("Timer reset and grounded");
-            jumpTimer = 0f;
-            currentJumps = nJumps;
             initialJumpDone = false;
+            currentJumps = nJumps;
+            isJumping = true;
+            jumpTimer = 0;
         }
-
-        if (!initialJumpDone && isGroundedWithMargin() && currentJumps > 0)
+        // Pressing jump again while in the air
+        else if(currentJumps > 0)
         {
-            OnJump?.Invoke();
+            jumpTimer = 0;
+            isJumping = true;
+        }
+        else if(currentJumps == 0)
+        {
+            Debug.Log("No more jumps available");
+        }
+    }
+
+    public void StopJump()
+    {
+        if(currentJumps > 0)
+        {
             currentJumps--;
+        }
+        isJumping = false;
+    }
+
+    private bool isGroundedWithMargin()
+    {
+        return nonGroundedTimer < edgeJumpHelpTime;
+    }
+
+    private void edgeJumpHandicap()
+    {
+        if (!playerPhysics.IsGrounded())
+        {
+            nonGroundedTimer += Time.deltaTime;
+        }
+        else
+        {
+            nonGroundedTimer = 0f;
+        }
+    }
+
+    internal void Land(Vector2 moveVector)
+    {
+        if (moveVector.y < 0)
+        {
+            playerPhysics.ApplyMovement(Vector3.down * landingForce);
+        }
+    }
+
+    private void ApplyJumpForce()
+    {
+        if (!initialJumpDone)
+        {
+            OnJump?.Invoke(); // For soundeffect
             initialJumpDone = true;
             playerPhysics.ApplyMovement(Vector3.up * jumpForceInitial * Time.deltaTime, ForceMode.VelocityChange);
         } 
-        else if (initialJumpDone && jumpTimer > addedForceTimeStart && jumpTimer < maxJumpTime)
+        if (initialJumpDone && jumpTimer < maxJumpTime)
         {
-           // Debug.Log("Added force");
             playerPhysics.ApplyMovement(Vector3.up * jumpForceAdded * Time.deltaTime, ForceMode.VelocityChange);
         }
-
-        if (jumpTimer >= maxJumpTime)
+        if(jumpTimer >= maxJumpTime)
         {
-            Debug.Log("Jump time up");
+            Debug.Log("Jump time out");
         }
     }
 
