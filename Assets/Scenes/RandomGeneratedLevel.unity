@@ -663,7 +663,7 @@ PrefabInstance:
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 2696308066257286899, guid: 5426fba8e2ad4f44791c01396bd9fbef, type: 3}
+      objectReference: {fileID: 2696308066257286899, guid: d670c71e4d60a6d4e8314ec8e928d937, type: 3}
     - target: {fileID: 609375105919475854, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_Name
       value: PlatformSpawner (1)
@@ -789,9 +789,13 @@ PrefabInstance:
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 2696308066257286899, guid: 5426fba8e2ad4f44791c01396bd9fbef, type: 3}
+      objectReference: {fileID: 2696308066257286899, guid: f3207e36e1222174cbf6b3b9d7368bf9, type: 3}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnObjects.Array.data[3]
+      value: 
+      objectReference: {fileID: 2696308066257286899, guid: 5d5c951f9223892419ffa588c3679141, type: 3}
+    - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
+      propertyPath: spawnObjects.Array.data[4]
       value: 
       objectReference: {fileID: 6735870976431118908, guid: 3ac03931c9a041f4e9ebf3133e1bf076, type: 3}
     - target: {fileID: 609375105919475854, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
@@ -1385,7 +1389,7 @@ PrefabInstance:
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnObjects.Array.data[2]
       value: 
-      objectReference: {fileID: 2696308066257286899, guid: 5426fba8e2ad4f44791c01396bd9fbef, type: 3}
+      objectReference: {fileID: 2696308066257286899, guid: f3207e36e1222174cbf6b3b9d7368bf9, type: 3}
     - target: {fileID: 609375105919475854, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_Name
       value: PlatformSpawner (2)
@@ -1633,7 +1637,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.15605663, y: -0.000000008497788, z: 0.0000000013425852, w: 0.98774815}
+  m_LocalRotation: {x: 0.15605663, y: 0.000000008497783, z: -0.0000000013425845, w: 0.98774815}
   m_LocalPosition: {x: 46.105324, y: 22.204105, z: 7.784276}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2556,6 +2560,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6879327986961553865, guid: 3a8153864fedad045ad5b9ba4cf495e0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 240f66def8b0c604686b9bf657c10aba, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a8153864fedad045ad5b9ba4cf495e0, type: 3}
 --- !u!1 &1895645497
@@ -2715,7 +2723,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913691349}
-  m_LocalRotation: {x: 0.15605663, y: -0.000000008497788, z: 0.0000000013425852, w: 0.98774815}
+  m_LocalRotation: {x: 0.15605663, y: 0.000000008497783, z: -0.0000000013425845, w: 0.98774815}
   m_LocalPosition: {x: 46.105324, y: 22.204105, z: 7.784276}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
