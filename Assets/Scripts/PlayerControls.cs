@@ -24,6 +24,7 @@ public class PlayerControls : MonoBehaviour
     private void FixedUpdate()
     {
         movementHandler.Steer(moveVector);
+        movementHandler.Land(moveVector);
         shipAnimation.HandleEngineEmission(moveVector);
         shipAnimation.RotateShip(moveVector);
     }

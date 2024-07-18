@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +18,10 @@ public class MovementHandler : MonoBehaviour
     [SerializeField] private float jumpForceAdded = 100f;
     [SerializeField] private float jumpForceInitial = 40f;
     [SerializeField] private float maxJumpTime = 0.2f; // Time in seconds that the jump force can be added
+    [SerializeField] private float landingForce = 2f;
+
+
+
     [SerializeField] private float addedForceTimeStart = 0.05f;
 
 
@@ -53,6 +58,7 @@ public class MovementHandler : MonoBehaviour
         {
             jumpTimer += Time.deltaTime;
         }
+
     }
 
     private bool isGroundedWithMargin()
@@ -77,6 +83,14 @@ public class MovementHandler : MonoBehaviour
         playerPhysics = GetComponent<PlayerPhysics>();
         currentJumps = nJumps;
         originPosition = playerPhysics.transform.position;
+    }
+
+    internal void Land(Vector2 moveVector)
+    {
+        if (moveVector.y < 0)
+        {
+            playerPhysics.ApplyMovement(Vector3.down * landingForce);
+        }
     }
 
     public void Steer(Vector2 moveInput2D)
