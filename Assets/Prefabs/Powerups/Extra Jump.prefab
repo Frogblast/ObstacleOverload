@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 5646329093925121153}
   m_Layer: 0
   m_Name: extra_jump_visual
-  m_TagString: Untagged
+  m_TagString: ExtraJump
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

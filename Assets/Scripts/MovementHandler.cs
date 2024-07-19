@@ -11,31 +11,26 @@ public class MovementHandler : MonoBehaviour
     [SerializeField] private float maxBackwardsDistance = 10f;
     [SerializeField] private float forwardSpeed = 0.9f;
 
+
     [SerializeField] private int nJumps = 1;
     public bool isJumping = false;
     private bool initialJumpDone = false;
     private float jumpDelay;
     [SerializeField] private float jumpForceAdded = 100f;
     [SerializeField] private float jumpForceInitial = 40f;
-    [SerializeField] private float maxJumpTime = 0.2f; // Time in seconds that the jump force can be added
     [SerializeField] private float landingForce = 2f;
 
-
-
-    [SerializeField] private float addedForceTimeStart = 0.05f;
-
-
-    private float jumpTimer = 0f;
     [SerializeField] private float edgeJumpHelpTime = .5f;
     private float nonGroundedTimer = 0f;
-    private int currentJumps;
+    [SerializeField] private int currentJumps;
+    private int extraJump = 0;
     private Vector3 originPosition;
 
     private PlayerPhysics playerPhysics;
 
 
     public static event System.Action OnJump;
-    
+
 
     private void FixedUpdate()
     {
@@ -46,16 +41,16 @@ public class MovementHandler : MonoBehaviour
         ReturnToBaseSpeed();
     }
 
+
     private void Update()
     {
+        if (isGroundedWithMargin() && !isJumping)
+        {
+            if (currentJumps <= 0) currentJumps = nJumps;
+        }
         if (isJumping)
         {
             ApplyJumpForce();
-            jumpTimer += Time.deltaTime;
-            if(jumpTimer > maxJumpTime)
-            {
-                Debug.Log("Jump time out");
-            }
         }
         edgeJumpHandicap();
     }
@@ -66,6 +61,16 @@ public class MovementHandler : MonoBehaviour
         playerPhysics = GetComponent<PlayerPhysics>();
         currentJumps = nJumps;
         originPosition = playerPhysics.transform.position;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("ExtraJump"))
+        {
+            Debug.Log("Entered extra jump");
+            extraJump++;
+        }
+
     }
 
     public void Steer(Vector2 moveInput2D)
@@ -118,32 +123,35 @@ public class MovementHandler : MonoBehaviour
     // Jumping
     public void StartJump()
     {
+
         // Reset the jump
         if (isGroundedWithMargin())
         {
             initialJumpDone = false;
-            currentJumps = nJumps;
             isJumping = true;
-            jumpTimer = 0;
         }
         // Pressing jump again while in the air
-        else if(currentJumps > 0)
+        else if (currentJumps > 0)
         {
-            jumpTimer = 0;
             isJumping = true;
         }
-        else if(currentJumps == 0)
+        else if (extraJump > 0)
+        {
+            isJumping = true;
+            extraJump--;
+        }
+        else if (currentJumps == 0)
         {
             Debug.Log("No more jumps available");
+        }
+        if (currentJumps >= 0)
+        {
+            currentJumps--; // prevent to ever falling below zero
         }
     }
 
     public void StopJump()
     {
-        if(currentJumps > 0)
-        {
-            currentJumps--;
-        }
         isJumping = false;
     }
 
@@ -176,17 +184,17 @@ public class MovementHandler : MonoBehaviour
     {
         if (!initialJumpDone)
         {
+
+            //Debug.Log("Initial");
             OnJump?.Invoke(); // For soundeffect
             initialJumpDone = true;
             playerPhysics.ApplyMovement(Vector3.up * jumpForceInitial * Time.deltaTime, ForceMode.VelocityChange);
-        } 
-        if (initialJumpDone && jumpTimer < maxJumpTime)
-        {
-            playerPhysics.ApplyMovement(Vector3.up * jumpForceAdded * Time.deltaTime, ForceMode.VelocityChange);
         }
-        if(jumpTimer >= maxJumpTime)
+        if (initialJumpDone)
         {
-            Debug.Log("Jump time out");
+            //Debug.Log("Follow up");
+
+            playerPhysics.ApplyMovement(Vector3.up * jumpForceAdded * Time.deltaTime, ForceMode.VelocityChange);
         }
     }
 
