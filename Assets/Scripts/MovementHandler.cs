@@ -69,6 +69,7 @@ public class MovementHandler : MonoBehaviour
         {
             Debug.Log("Entered extra jump");
             extraJump++;
+            Destroy(other.gameObject);
         }
 
     }
@@ -137,6 +138,7 @@ public class MovementHandler : MonoBehaviour
         }
         else if (extraJump > 0)
         {
+            initialJumpDone = false;
             isJumping = true;
             extraJump--;
         }

@@ -570,7 +570,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475848, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 95
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475848, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -696,7 +696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475848, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 95
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475848, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -772,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 2696308066257286899, guid: 3a8153864fedad045ad5b9ba4cf495e0, type: 3}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnObjects.Array.size
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnFrequencyMultiplier
@@ -797,7 +797,7 @@ PrefabInstance:
     - target: {fileID: 609375105919475849, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: spawnObjects.Array.data[4]
       value: 
-      objectReference: {fileID: 6735870976431118908, guid: 3ac03931c9a041f4e9ebf3133e1bf076, type: 3}
+      objectReference: {fileID: 2696308066257286899, guid: 920f757ff094d4d4ab8851e398a11c5d, type: 3}
     - target: {fileID: 609375105919475854, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_Name
       value: PlatformSpawner
@@ -1296,7 +1296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475848, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 95
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 609375105919475848, guid: f63afdd3112ff2f4ba9525e79d3eb02b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3169,7 +3169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: nJumps
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForce
@@ -3189,7 +3189,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForceAdded
-      value: 85
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: edgeJumpHelpTime
@@ -3197,7 +3197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForceInitial
-      value: 85
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 3751977233929419245, guid: 976479fa1e14c4441b1cfbd27fcdd37e, type: 3}
       propertyPath: jumpForceMinimum
