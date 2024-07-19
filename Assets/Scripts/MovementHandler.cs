@@ -30,6 +30,8 @@ public class MovementHandler : MonoBehaviour
 
 
     public static event System.Action OnJump;
+    public static event System.Action CollectedExtraJump;
+    public static event System.Action UsedExtraJump;
 
 
     private void FixedUpdate()
@@ -70,6 +72,7 @@ public class MovementHandler : MonoBehaviour
             Debug.Log("Entered extra jump");
             extraJump++;
             Destroy(other.gameObject);
+            CollectedExtraJump?.Invoke();
         }
 
     }
@@ -141,6 +144,7 @@ public class MovementHandler : MonoBehaviour
             initialJumpDone = false;
             isJumping = true;
             extraJump--;
+            UsedExtraJump?.Invoke();
         }
         else if (currentJumps == 0)
         {
