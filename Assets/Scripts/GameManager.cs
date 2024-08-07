@@ -8,14 +8,28 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    private enum GameState { Menu, Playing, Paused, GameOver}
-    private GameState _gameState;
+    public enum GameState { Menu, Playing, Paused, GameOver }
+    public GameState State { get; private set; }
+
+    public delegate void OnDeath();
+    public static OnDeath onDeath;
+    public delegate void OnGameStateChange();
+    public static OnGameStateChange onGameStateChange;
 
     // Public methods:
     public void StartGame()
     {
         UpdateGameState(GameState.Playing);
+    }
+
+    private void OnEnable()
+    {
         PlayerPhysics.onDeath += GameOver;
+    }
+
+    private void OnDisable()
+    {
+        PlayerPhysics.onDeath -= GameOver;
     }
 
     public void QuitGame()
@@ -48,24 +62,44 @@ public class GameManager : MonoBehaviour
         UpdateGameState(GameState.Menu);
     }
 
+    public void Pause()
+    {
+        if (State == GameState.Playing)
+        {
+            UpdateGameState(GameState.Paused);
+        }
+        else if (State == GameState.Paused)
+        {
+            UpdateGameState(GameState.Playing);
+        }
+    }
+
     private void UpdateGameState(GameState newState)
     {
-        _gameState = newState;
-        switch (_gameState)
+        GameState oldState = State;
+        State = newState;
+        switch (newState)
         {
             case GameState.Menu:
                 SceneManager.LoadScene("MainMenu");
                 Time.timeScale = 1;
                 break;
             case GameState.Playing:
-                SceneManager.LoadScene("RandomGeneratedLevel");
+                if (oldState != GameState.Paused)
+                {
+                    SceneManager.LoadScene("RandomGeneratedLevel");
+                }
                 Time.timeScale = 1;
                 break;
             case GameState.GameOver:
                 SceneManager.LoadScene("GameOver");
                 Time.timeScale = 1;
                 break;
+            case GameState.Paused:
+                Time.timeScale = 0;
+                break;
         }
-        Debug.Log("Gamestate updated to: " + _gameState.ToString());
+        onGameStateChange?.Invoke();
+        Debug.Log("Gamestate updated to: " + State.ToString());
     }
 }

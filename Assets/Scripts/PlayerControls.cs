@@ -11,6 +11,7 @@ public class PlayerControls : MonoBehaviour
     private MovementHandler movementHandler;
     private ShipAnimation shipAnimation;
 
+
     private void Awake()
     {
         //2. Make Input Action asset.
@@ -44,4 +45,10 @@ public class PlayerControls : MonoBehaviour
             movementHandler.StopJump();
         }
     }
+
+    public void Pause(InputAction.CallbackContext context)
+    {
+        GameManager.Instance.Pause();
+    }
+
 }
