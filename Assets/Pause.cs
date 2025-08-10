@@ -17,7 +17,7 @@ public class Pause : MonoBehaviour
     {
         if (GameManager.Instance.State == GameManager.GameState.Paused)
         {
-            PauseElement.SetText("Paused");
+            PauseElement.SetText("Pause\r\n(Esc to continue)");
         }
         else
         {
